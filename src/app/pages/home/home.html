@@ -1,0 +1,143 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="review-banner" role="status">
+  <span class="review-dot"></span>
+  Private review build — content awaiting regulatory approval.
+</div>
+
+<header class="site-header">
+  <a class="wordmark" href="#top" aria-label="Future Mortgage Solutions home" (click)="closeMenu()">
+    <span class="wordmark-mark">FMS</span>
+    <span>Future Mortgage <em>Solutions</em></span>
+  </a>
+
+  <button class="menu-toggle" type="button" [attr.aria-expanded]="menuOpen()" aria-controls="primary-navigation" (click)="menuOpen.set(!menuOpen())">
+    <span></span><span></span><span></span>
+    <span class="visually-hidden">Toggle navigation</span>
+  </button>
+
+  <nav id="primary-navigation" [class.is-open]="menuOpen()" aria-label="Primary navigation">
+    <a href="#services" (click)="closeMenu()">Services</a>
+    <a href="#overseas" (click)="closeMenu()">Overseas clients</a>
+    <a href="#approach" (click)="closeMenu()">Why Faye</a>
+    <a href="#contact" (click)="closeMenu()">Contact</a>
+  </nav>
+  <a class="header-call" href="tel:+447551302505">Call Faye <span>↗</span></a>
+</header>
+
+<main id="main-content">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <img class="hero-logo" src="future-mortgage-solutions-logo.png" alt="Future Mortgage Solutions Ltd" />
+      <p class="eyebrow">Whole of Market UK Mortgage Broker</p>
+      <h1 id="hero-title">Clear guidance for your <span>next move.</span></h1>
+      <p class="hero-intro">Personal mortgage advice from Faye Tomkins for UK residents, property investors, expats and overseas clients buying in the UK.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#contact">Start a conversation <span>→</span></a>
+        <a class="button button-text" href="tel:+447551302505">Call +44 7551 302505</a>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="hero-orbit orbit-one"></div>
+      <div class="hero-orbit orbit-two"></div>
+      <div class="house-shape"><span></span><span></span><span></span><span></span></div>
+      <div class="growth-arrow"><i></i></div>
+      <p>UK<br>PROPERTY<br><strong>ADVICE</strong></p>
+    </div>
+
+    <aside class="hero-note">
+      <span class="note-line"></span>
+      <p>Advice designed around your circumstances, with support from first conversation to completion.</p>
+    </aside>
+  </section>
+
+  <section class="statement" aria-label="Future Mortgage Solutions introduction">
+    <p class="section-index">01 / The brief</p>
+    <div>
+      <p class="statement-kicker">A considered route forward</p>
+      <h2>A mortgage is rarely just a mortgage. It is a decision about <em>home, opportunity and what comes next.</em></h2>
+      <p class="statement-body">Future Mortgage Solutions provides expert, personal mortgage advice with access to a wide range of UK lenders and products. We take time to understand the detail, then help you find a suitable way forward.</p>
+    </div>
+  </section>
+
+  <section class="services" id="services" aria-labelledby="services-title">
+    <div class="section-heading">
+      <p class="section-index">02 / Expertise</p>
+      <div><p class="eyebrow">Where we can help</p><h2 id="services-title">Mortgage advice for the moments that matter.</h2></div>
+    </div>
+
+    <div class="service-list">
+      <article class="service-item"><span>01</span><h3>Residential mortgages</h3><p>Buying your next home, moving up, or finding a mortgage that fits your circumstances.</p></article>
+      <article class="service-item"><span>02</span><h3>First-time buyers</h3><p>A clear, patient route through the lending process when everything is new.</p></article>
+      <article class="service-item"><span>03</span><h3>Buy-to-let &amp; portfolios</h3><p>Mortgage support for individual investors and established portfolio landlords.</p></article>
+      <article class="service-item"><span>04</span><h3>Remortgaging</h3><p>Reviewing your existing arrangement and exploring the options available to you.</p></article>
+    </div>
+  </section>
+
+  <section class="overseas" id="overseas" aria-labelledby="overseas-title">
+    <div class="overseas-art" aria-hidden="true">
+      <div class="globe"><span class="latitude lat-one"></span><span class="latitude lat-two"></span><span class="longitude long-one"></span><span class="longitude long-two"></span></div>
+      <div class="route route-one"></div><div class="route route-two"></div><div class="pin pin-one"></div><div class="pin pin-two"></div>
+    </div>
+    <div class="overseas-copy">
+      <p class="section-index">03 / Beyond borders</p>
+      <p class="eyebrow">Overseas &amp; expat specialists</p>
+      <h2 id="overseas-title">Connected to the UK property market, wherever you are.</h2>
+      <p>Purchasing or refinancing UK property while living overseas can come with extra layers. We work with lenders experienced in UK expat, foreign national and international investor mortgages.</p>
+      <ul>
+        <li>UK expats</li><li>Foreign nationals</li><li>Overseas buy-to-let</li><li>Non-resident UK owners</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="approach" id="approach" aria-labelledby="approach-title">
+    <div class="approach-top"><p class="section-index">04 / The Faye difference</p><p>One adviser. A considered process. Clear communication throughout.</p></div>
+    <h2 id="approach-title">Your circumstances first.<br><em>The lending landscape second.</em></h2>
+    <div class="approach-points">
+      <article><span>↗</span><h3>Whole of market advice</h3><p>Access to a wide range of lenders and mortgage products.</p></article>
+      <article><span>↗</span><h3>Specialist perspective</h3><p>Focused knowledge for overseas and expat mortgage requirements.</p></article>
+      <article><span>↗</span><h3>Personal support</h3><p>A single, client-focused point of contact through the process.</p></article>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="contact-intro">
+      <p class="section-index">05 / Make your move</p>
+      <h2 id="contact-title">Let’s talk about what is <em>possible.</em></h2>
+      <p>Tell Faye a little about what you need. We will respond to start the conversation.</p>
+      <div class="contact-direct">
+        <a href="tel:+447551302505"><small>Telephone</small>+44 7551 302505</a>
+        <a href="mailto:faye@futuremortgagesolutions.co.uk"><small>Email</small>faye@futuremortgagesolutions.co.uk</a>
+      </div>
+      <p class="hours"><strong>Hours</strong> Monday–Friday, 9:00am–6:00pm<br>Saturday by appointment</p>
+    </div>
+
+    <form class="enquiry-form" (submit)="submitEnquiry($event)" novalidate>
+      <p class="form-label">Send an enquiry</p>
+      <p class="form-warning">Please do not include financial, account, or mortgage-application information in this form.</p>
+      <label>Name<input autocomplete="name" [formField]="enquiryForm.name" /></label>
+      @if (enquiryForm.name().touched() && enquiryForm.name().errors().length) { <p class="field-error">{{ enquiryForm.name().errors()[0].message }}</p> }
+      <label>Email<input type="email" autocomplete="email" [formField]="enquiryForm.email" /></label>
+      @if (enquiryForm.email().touched() && enquiryForm.email().errors().length) { <p class="field-error">{{ enquiryForm.email().errors()[0].message }}</p> }
+      <label>Telephone <span>(optional)</span><input type="tel" autocomplete="tel" [formField]="enquiryForm.phone" /></label>
+      @if (enquiryForm.phone().touched() && enquiryForm.phone().errors().length) { <p class="field-error">{{ enquiryForm.phone().errors()[0].message }}</p> }
+      <label>How can we help?<textarea rows="5" [formField]="enquiryForm.message"></textarea></label>
+      @if (enquiryForm.message().touched() && enquiryForm.message().errors().length) { <p class="field-error">{{ enquiryForm.message().errors()[0].message }}</p> }
+      <label class="trap" aria-hidden="true">Website<input tabindex="-1" autocomplete="off" [formField]="enquiryForm.website" /></label>
+      <label class="consent"><input type="checkbox" [formField]="enquiryForm.privacyAccepted" /><span>I have read the <a routerLink="/privacy">privacy notice</a> and understand how my enquiry will be handled.</span></label>
+      @if (enquiryForm.privacyAccepted().touched() && enquiryForm.privacyAccepted().errors().length) { <p class="field-error">{{ enquiryForm.privacyAccepted().errors()[0].message }}</p> }
+      <div id="turnstile-widget" class="turnstile-slot" aria-label="Spam protection"></div>
+      @if (submitState() === 'success') { <p class="form-status success" role="status">Thank you. Your enquiry has been sent to Faye.</p> }
+      @if (submitState() === 'error') { <p class="form-status error" role="alert">We could not send your enquiry. Please call or email Faye directly.</p> }
+      <button class="button button-primary submit" type="submit" [disabled]="isSubmitting()">{{ isSubmitting() ? 'Sending…' : 'Send enquiry' }} <span>→</span></button>
+    </form>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-brand"><img src="future-mortgage-solutions-logo.png" alt="Future Mortgage Solutions Ltd" /><p>Future Mortgage Solutions Ltd</p></div>
+  <div class="footer-regulatory"><p><strong>Regulatory information</strong></p><p>Future Mortgage Solutions Ltd is an Appointed Representative of The Mortgage Genie Ltd. The Mortgage Genie Ltd is authorised and regulated by the Financial Conduct Authority. FCA Number: 786245.</p><p><strong>Your home may be repossessed if you do not keep up repayments on your mortgage.</strong></p></div>
+  <div class="footer-links"><a routerLink="/privacy">Privacy notice</a><a href="mailto:faye@futuremortgagesolutions.co.uk">Email Faye</a><p>© 2026 Future Mortgage Solutions Ltd.</p></div>
+</footer>

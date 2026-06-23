@@ -1,0 +1,12 @@
+:root {
+  color-scheme: light;
+  font-family: Aptos, "Avenir Next", "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: #f9f5eb; color: #082f4e; }
+button, input, textarea { font: inherit; }
+a { color: inherit; }

@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "future-mortgage-solutions-enquiries",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-23",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "futuremortgagesolutions.co.uk/api/*", "zone_name": "futuremortgagesolutions.co.uk" }
+  ]
+}
