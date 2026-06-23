@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-privacy',
   imports: [RouterLink],
   templateUrl: './privacy.html',
-  styleUrl: './privacy.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Privacy {}

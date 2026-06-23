@@ -18,7 +18,6 @@ declare global {
   selector: 'app-home',
   imports: [FormField, RouterLink],
   templateUrl: './home.html',
-  styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home implements AfterViewInit {
