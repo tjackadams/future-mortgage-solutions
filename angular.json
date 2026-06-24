@@ -30,7 +30,10 @@
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
-              "allowedHosts": []
+              "allowedHosts": [
+                "futuremortgagesolutions.co.uk",
+                "www.futuremortgagesolutions.co.uk"
+              ]
             },
             "ssr": {
               "entry": "src/server.ts",
