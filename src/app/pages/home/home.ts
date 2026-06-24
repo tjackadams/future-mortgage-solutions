@@ -1,9 +1,10 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, PLATFORM_ID, inject, isDevMode, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, PLATFORM_ID, inject, isDevMode, signal } from '@angular/core';
 import { FormField, email, form, maxLength, required, submit, validate } from '@angular/forms/signals';
 import { RouterLink } from '@angular/router';
 
 import { Enquiry } from '../../services/enquiry';
+import { Seo, homeSeo } from '../../services/seo';
 
 declare global {
   interface Window {
@@ -20,9 +21,10 @@ declare global {
   templateUrl: './home.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home implements AfterViewInit {
+export class Home implements AfterViewInit, OnInit {
   private readonly enquiryService = inject(Enquiry);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly seo = inject(Seo);
 
   protected readonly menuOpen = signal(false);
   protected readonly isSubmitting = signal(false);
@@ -53,6 +55,10 @@ export class Home implements AfterViewInit {
       value() ? undefined : { kind: 'privacy', message: 'Please confirm you have read the privacy notice.' },
     );
   });
+
+  ngOnInit(): void {
+    this.seo.apply(homeSeo);
+  }
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;

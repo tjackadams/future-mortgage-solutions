@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home').then((m) => m.Home),
-    title: 'Faye Tomkins | Future Mortgage Solutions',
+    title: 'Faye Adams | UK Mortgage & Protection Adviser | Future Mortgage Solutions',
   },
   {
     path: 'privacy',

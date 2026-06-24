@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
+import { privacySeo, Seo } from '../../services/seo';
 
 @Component({
   selector: 'app-privacy',
@@ -7,4 +9,10 @@ import { RouterLink } from '@angular/router';
   templateUrl: './privacy.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Privacy {}
+export class Privacy implements OnInit {
+  private readonly seo = inject(Seo);
+
+  ngOnInit(): void {
+    this.seo.apply(privacySeo);
+  }
+}
