@@ -23,8 +23,8 @@ export const homeSeo: SeoPage = {
   structuredData: {
     '@context': 'https://schema.org',
     '@type': 'FinancialService',
-    name: 'Future Mortgage Solutions Ltd',
-    legalName: 'Future Mortgage Solutions Ltd',
+    name: 'Future Mortgage Solutions Limited',
+    legalName: 'Future Mortgage Solutions Limited',
     url: SITE_URL,
     logo: logoUrl,
     image: logoUrl,
@@ -43,10 +43,22 @@ export const homeSeo: SeoPage = {
       name: 'Mortgage advice services',
       itemListElement: [
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Residential mortgages' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'First-time buyer mortgages' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Buy-to-let and portfolio mortgages' } },
+        {
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name: 'First-time buyer mortgages' },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name: 'Buy-to-let and portfolio mortgages' },
+        },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Remortgaging' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Specialist mortgages for expats and foreign nationals' } },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Specialist mortgages for expats and foreign nationals',
+          },
+        },
       ],
     },
   },

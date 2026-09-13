@@ -18,8 +18,12 @@ describe('Seo', () => {
     seo.apply(homeSeo);
 
     expect(document.title).toContain('Faye Adams');
-    expect(document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(SITE_URL);
-    expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toContain('index,follow');
+    expect(document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
+      SITE_URL,
+    );
+    expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toContain(
+      'index,follow',
+    );
     const schema = JSON.parse(document.head.querySelector('#structured-data')?.textContent ?? '{}');
     expect(schema['@type']).toBe('FinancialService');
     expect(schema.areaServed.name).toBe('United Kingdom');
@@ -30,8 +34,12 @@ describe('Seo', () => {
     seo.apply(homeSeo);
     seo.apply(privacySeo);
 
-    expect(document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(`${SITE_URL}/privacy`);
-    expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex,follow');
+    expect(document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
+      `${SITE_URL}/privacy`,
+    );
+    expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe(
+      'noindex,follow',
+    );
     expect(document.head.querySelector('#structured-data')).toBeNull();
   });
 });

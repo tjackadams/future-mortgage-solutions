@@ -1,59 +1,57 @@
-# FutureMortgageSolutions
+# Future Mortgage Solutions
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.3.
+The public website and enquiry API for Future Mortgage Solutions.
 
-## Development server
+## Local development
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Install the pinned npm version, then start the Angular development server:
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Open `http://localhost:4200/`. The development server reloads after source changes.
+
+## Quality checks
+
+Run the same checks expected before a release:
 
 ```bash
-ng generate --help
+npm run check
 ```
 
-## Building
+Formatting is controlled by `.editorconfig` and `.prettierrc`. VS Code uses Prettier on save and sorts Tailwind classes using the Tailwind v4 stylesheet in `src/styles.css`.
 
-To build the project run:
+To apply or verify formatting separately:
 
 ```bash
-ng build
+npm run format
+npm run format:check
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Deployment
 
-## Running unit tests
+Cloudflare Git integration deploys the two applications independently from `main`:
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- The Angular SSR application runs `npm run build`, then `npx wrangler deploy` from the repository root.
+- The enquiry Worker runs `npx wrangler deploy` from `worker/` without a separate build command.
+
+The following scripts provide equivalent manual deployments from the repository root:
 
 ```bash
-ng test
+npm run deploy
+npm run deploy:worker
 ```
 
-## Running end-to-end tests
+Configure the Worker values and secrets documented in `worker/README.md` before deploying it.
 
-For end-to-end (e2e) testing, run:
+Both Wrangler configurations persist invocation logs and traces at 100% sampling, with query strings redacted. Review the sampling rates if traffic grows enough to approach the Cloudflare observability event allowance.
 
-```bash
-ng e2e
-```
+## Before launch
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+The following items require confirmation from the business owner or compliance team:
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Confirm the privacy controller, registered office, privacy contact, and retention criteria.
+- Confirm Cloudflare Web Analytics is enabled as described, or remove that statement from the privacy notice.
+- Add the production Worker secrets and verify a real enquiry from the deployed domain.

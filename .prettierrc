@@ -1,6 +1,9 @@
 {
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./src/styles.css",
   "printWidth": 100,
   "singleQuote": true,
+  "endOfLine": "lf",
   "overrides": [
     {
       "files": "*.html",

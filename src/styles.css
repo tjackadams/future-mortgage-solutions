@@ -11,7 +11,7 @@
   --color-warm: #eee8d9;
   --color-signal: #efb74f;
   --color-danger: #a93d34;
-  --font-sans: "Avenir Next", Aptos, "Segoe UI", sans-serif;
+  --font-sans: 'Avenir Next', Aptos, 'Segoe UI', sans-serif;
   --shadow-float: 0 24px 60px -28px rgb(6 46 69 / 0.35);
   --shadow-card: 0 14px 34px -22px rgb(6 46 69 / 0.28);
 }

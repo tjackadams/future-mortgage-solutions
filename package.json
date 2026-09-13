@@ -7,8 +7,15 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:future-mortgage-solutions": "node dist/future-mortgage-solutions/server/server.mjs",
+    "test:ci": "ng test --watch=false && vitest run worker/src/index.spec.ts",
+    "format": "prettier . --write --ignore-unknown",
+    "format:check": "prettier . --check --ignore-unknown",
+    "dead-code": "knip",
+    "typecheck:worker": "tsc --project worker/tsconfig.json",
+    "check:worker": "wrangler deploy --dry-run --config worker/wrangler.jsonc",
+    "check": "npm run format:check && npm run dead-code && npm run typecheck:worker && npm run test:ci && npm run build && npm run check:worker",
     "deploy": "npm run build && wrangler deploy",
+    "deploy:worker": "wrangler deploy --config worker/wrangler.jsonc",
     "preview": "npm run build && wrangler dev",
     "cf-typegen": "wrangler types"
   },
@@ -23,7 +30,6 @@
     "@angular/platform-server": "^22.0.0",
     "@angular/router": "^22.0.0",
     "@angular/ssr": "^22.0.3",
-    "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -32,15 +38,15 @@
     "@angular/cli": "^22.0.3",
     "@angular/compiler-cli": "^22.0.0",
     "@tailwindcss/postcss": "^4.3.1",
-    "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
     "jsdom": "^28.0.0",
+    "knip": "^6.35.1",
     "postcss": "^8.5.3",
     "prettier": "^3.8.1",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.1",
     "typescript": "~6.0.2",
     "vitest": "^4.0.8",
-    "wrangler": "^4.104.0",
-    "xhr2": "^0.2.1"
+    "wrangler": "^4.104.0"
   }
 }

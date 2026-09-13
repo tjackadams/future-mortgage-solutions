@@ -4,7 +4,29 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-06-23",
   "workers_dev": false,
+  "observability": {
+    "enabled": true,
+    "redact_query_string": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true,
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+    },
+  },
   "routes": [
-    { "pattern": "futuremortgagesolutions.co.uk/api/*", "zone_name": "futuremortgagesolutions.co.uk" }
-  ]
+    {
+      "pattern": "futuremortgagesolutions.co.uk/api/*",
+      "zone_name": "futuremortgagesolutions.co.uk",
+    },
+    {
+      "pattern": "www.futuremortgagesolutions.co.uk/api/*",
+      "zone_name": "futuremortgagesolutions.co.uk",
+    },
+  ],
 }

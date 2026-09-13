@@ -24,21 +24,66 @@ const json = (body: Record<string, unknown>, status = 200): Response =>
 
 const isString = (value: unknown): value is string => typeof value === 'string';
 
+const isAllowedOrigin = (origin: string | null, configuredOrigins: string): boolean => {
+  const allowedOrigins = configuredOrigins
+    .split(',')
+    .map((allowedOrigin) => allowedOrigin.trim())
+    .filter(Boolean);
+
+  return allowedOrigins.length === 0 || (origin !== null && allowedOrigins.includes(origin));
+};
+
+async function readRequestBody(request: Request): Promise<string | undefined> {
+  const reader = request.body?.getReader();
+  if (!reader) return '';
+
+  const decoder = new TextDecoder();
+  let body = '';
+  let bytesRead = 0;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) return body + decoder.decode();
+
+    bytesRead += value.byteLength;
+    if (bytesRead > MAX_BODY_BYTES) {
+      await reader.cancel();
+      return undefined;
+    }
+
+    body += decoder.decode(value, { stream: true });
+  }
+}
+
 function validEnquiry(value: unknown): value is Enquiry {
   if (!value || typeof value !== 'object') return false;
   const enquiry = value as Record<string, unknown>;
   return (
-    isString(enquiry['name']) && enquiry['name'].trim().length > 0 && enquiry['name'].length <= 100 &&
-    isString(enquiry['email']) && EMAIL.test(enquiry['email']) && enquiry['email'].length <= 254 &&
-    isString(enquiry['phone']) && enquiry['phone'].length <= 40 &&
-    isString(enquiry['message']) && enquiry['message'].trim().length > 0 && enquiry['message'].length <= 1_500 &&
-    typeof enquiry['privacyAccepted'] === 'boolean' && enquiry['privacyAccepted'] &&
-    isString(enquiry['website']) && enquiry['website'].length <= 200 &&
-    isString(enquiry['turnstileToken']) && enquiry['turnstileToken'].length <= 2_048
+    isString(enquiry['name']) &&
+    enquiry['name'].trim().length > 0 &&
+    enquiry['name'].length <= 100 &&
+    isString(enquiry['email']) &&
+    EMAIL.test(enquiry['email']) &&
+    enquiry['email'].length <= 254 &&
+    isString(enquiry['phone']) &&
+    enquiry['phone'].length <= 40 &&
+    isString(enquiry['message']) &&
+    enquiry['message'].trim().length > 0 &&
+    enquiry['message'].length <= 1_500 &&
+    typeof enquiry['privacyAccepted'] === 'boolean' &&
+    enquiry['privacyAccepted'] &&
+    isString(enquiry['website']) &&
+    enquiry['website'].length <= 200 &&
+    isString(enquiry['turnstileToken']) &&
+    enquiry['turnstileToken'].length <= 2_048
   );
 }
 
-async function verifyTurnstile(token: string, secret: string, remoteIp: string | null): Promise<boolean> {
+async function verifyTurnstile(
+  token: string,
+  secret: string,
+  remoteIp: string | null,
+): Promise<boolean> {
   const form = new FormData();
   form.set('secret', secret);
   form.set('response', token);
@@ -81,42 +126,43 @@ async function deliverWithResend(enquiry: Enquiry, env: Env): Promise<boolean> {
   return response.ok;
 }
 
-export default {
-  async fetch(request, env): Promise<Response> {
-    if (request.method !== 'POST' || new URL(request.url).pathname !== '/api/enquiries') {
-      return json({ error: 'Not found.' }, 404);
-    }
+export async function handleRequest(request: Request, env: Env): Promise<Response> {
+  if (request.method !== 'POST' || new URL(request.url).pathname !== '/api/enquiries') {
+    return json({ error: 'Not found.' }, 404);
+  }
 
-    const origin = request.headers.get('Origin');
-    if (env.ALLOWED_ORIGIN && origin !== env.ALLOWED_ORIGIN) {
-      return json({ error: 'Invalid request origin.' }, 403);
-    }
+  if (!isAllowedOrigin(request.headers.get('Origin'), env.ALLOWED_ORIGIN)) {
+    return json({ error: 'Invalid request origin.' }, 403);
+  }
 
-    const contentLength = Number(request.headers.get('Content-Length') ?? '0');
-    if (!request.headers.get('Content-Type')?.includes('application/json') || contentLength > MAX_BODY_BYTES) {
-      return json({ error: 'Invalid request.' }, 400);
-    }
+  if (!request.headers.get('Content-Type')?.includes('application/json')) {
+    return json({ error: 'Invalid request.' }, 400);
+  }
 
-    let payload: unknown;
-    try {
-      payload = await request.json();
-    } catch {
-      return json({ error: 'Invalid request.' }, 400);
-    }
+  const body = await readRequestBody(request);
+  if (body === undefined) return json({ error: 'Request body is too large.' }, 413);
 
-    if (!validEnquiry(payload)) return json({ error: 'Invalid request.' }, 400);
-    if (payload.website) return json({ accepted: true });
+  let payload: unknown;
+  try {
+    payload = JSON.parse(body);
+  } catch {
+    return json({ error: 'Invalid request.' }, 400);
+  }
 
-    const verified = await verifyTurnstile(
-      payload.turnstileToken,
-      env.TURNSTILE_SECRET_KEY,
-      request.headers.get('CF-Connecting-IP'),
-    );
-    if (!verified) return json({ error: 'Verification failed.' }, 400);
+  if (!validEnquiry(payload)) return json({ error: 'Invalid request.' }, 400);
+  if (payload.website) return json({ accepted: true });
 
-    const delivered = await deliverWithResend(payload, env);
-    if (!delivered) return json({ error: 'Unable to send enquiry.' }, 502);
+  const verified = await verifyTurnstile(
+    payload.turnstileToken,
+    env.TURNSTILE_SECRET_KEY,
+    request.headers.get('CF-Connecting-IP'),
+  );
+  if (!verified) return json({ error: 'Verification failed.' }, 400);
 
-    return json({ accepted: true }, 202);
-  },
-} satisfies ExportedHandler<Env>;
+  const delivered = await deliverWithResend(payload, env);
+  if (!delivered) return json({ error: 'Unable to send enquiry.' }, 502);
+
+  return json({ accepted: true }, 202);
+}
+
+export default { fetch: handleRequest } satisfies ExportedHandler<Env>;
